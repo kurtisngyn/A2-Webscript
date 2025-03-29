@@ -1,0 +1,62 @@
+/* Container for all candies */
+.candies-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Button container to align add & filter buttons */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+/* Grid layout for candies */
+.candies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Individual candy card */
+.candy-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.candy-card:hover {
+    transform: scale(1.05);
+}
+
+/* Candy image */
+.candy-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Candy name styling */
+.candy-card h5 {
+    font-size: 1.2em;
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Category text */
+.candy-card p {
+    font-size: 1em;
+    color: #666;
+}

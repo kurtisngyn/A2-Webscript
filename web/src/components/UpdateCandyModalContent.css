@@ -1,0 +1,53 @@
+/* UpdateCandyModalContent.module.css */
+
+/* Example for background overlay */
+.UCM-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Ensure it sits above other content */
+}
+
+/* Example for popup/modal */
+.UCM-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Edit button */
+.edit-button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #45a049;
+}
+
+/* Close button */
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+.close-button:hover {
+    color: black;
+}

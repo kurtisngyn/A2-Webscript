@@ -66,11 +66,19 @@ candiesRouter.delete("/:id", (req, res) => {
             console.log(err);
             // Send error response if there's an error
             res.status(500).send("Internal Server Error");
+            return;
         }
-        // Send success response
-        res.json(200).json({ message: "Candy Removed" });
+        
+        // Check if a row was actually deleted
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: "Candy not found" });
+        }
+
+        // Send success response if deletion is successful
+        res.status(200).json({ message: "Candy Removed" });
     });
 });
+
 
 // Update a candy by ID
 candiesRouter.put("/:id", upload.single("image"), (req, res) => {

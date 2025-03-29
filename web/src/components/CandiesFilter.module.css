@@ -1,0 +1,67 @@
+.filters-container {
+    
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px; /* Set width to keep it compact */
+    height: auto; /* Allow height to adjust to content */
+    max-height: 400px; /* Set a maximum height */
+    position: absolute; /* Position it absolutely on the page */
+    top: 50%; /* Position from top */
+    left: 0; /* Align to the left */
+    transform: translateY(-50%); /* Vertically center it */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.filters-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.filters-container h4 {
+    font-size: 18px;
+    color: #a419c7;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.filters-container label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #a236bd;
+    cursor: pointer;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.filters-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #bc1ee4;
+    cursor: pointer;
+}
+
+.filters-container input[type="checkbox"]:hover {
+    transform: scale(1.1);
+}
+
+.filters-container input[type="submit"] {
+    background-color: #ac1ecf;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.filters-container input[type="submit"]:hover {
+    background-color: #a97b9d;
+}
