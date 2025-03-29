@@ -1,14 +1,14 @@
 .footer {
-    background-color: #5f5b61;
-    color: #fffcfc;
+    background-color: #d1cfcf;
+    color: #000000;
     padding: 20px;
+
     text-align: center;
     bottom: 0;
     position: absolute;
     width: 100%;
     box-sizing: border-box;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px; 
+
 }
 
 * {

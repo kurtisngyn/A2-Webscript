@@ -53,8 +53,7 @@ function AllCandies() {
                             />
                             {/* Name of the candy */}
                             <h5>{candy.name}</h5>
-                            {/* Horizontal divider */}
-                            <hr />
+                          
                             {/* Category name */}
                             <p>{candy.category}</p>
                             <br />

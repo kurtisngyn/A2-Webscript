@@ -33,6 +33,7 @@
     color: white;
     border: none;
     cursor: pointer;
+    gap: 10px;
 }
 
 .edit-button:hover {
