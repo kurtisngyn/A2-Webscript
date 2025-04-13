@@ -1,23 +1,37 @@
 import { useState, useEffect } from 'react';
+import {useNavigate} from "react-router";
 
 function SignIn() {
 
+    const [loginSuccess, setLoginSucess] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(loginSuccess) {navigate("/store")}
+    }, [loginSuccess]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         // console.log(formData);
 
-        fetch("http://localhost:3000/users/sign-in",{
+        fetch("http://localhost:3000/users/sign-in", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(formData)
         })
+            .then(response => response.json() )
+            .then(returnedData => {
+                localStorage.setItem("jwt-token", returnedData.token);
+                setLoginSucess(true);
+                console.log(returnedData);
+            });
     };
 
     return (
