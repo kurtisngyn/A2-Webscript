@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const candiesRouter = require('./routers/candies');
 const categoriesRouter = require('./routers/categories');
+const usersRouter = require('./routers/users');
 const port = 3000;
  
 // Enable CORS
@@ -19,6 +20,7 @@ app.use(express.static('public'));
 // Use the routers 
 app.use('/candies', candiesRouter);
 app.use('/categories', categoriesRouter);
+app.use('/users', usersRouter);
 
 // Start the server
 app.listen(port, () => {
