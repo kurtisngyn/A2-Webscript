@@ -6,6 +6,10 @@ function DeleteCandyModalContent({ candy, onClose, onCandyDeleted }) {
         event.preventDefault();
         // Fetching our backend API candies
         fetch(`http://localhost:3000/candies/${candy.id}`, {
+            headers: {
+                // Adding the JWT token to the headers for authentication
+                Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
+            },
             // DELETE method here
             method: "DELETE"
         })

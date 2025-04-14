@@ -24,12 +24,23 @@ function UpdateCandyModalContent({ onCandyUpdated, candy, onClose }) {
 
         // API source from database based on the unique candy ID
         const candyResponse = await fetch(`http://localhost:3000/candies/${candy.id}`, {
+            headers: {
+                // Adding the JWT token to the headers for authentication
+                Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
+            },
             method: "PUT", // PUT method for updating candy details
             body: formData,
-        });
+        })
+        .then(response => response.json())
+      .then(json => {
 
-        onCandyUpdated(); // Refresh candies list after update
-        onClose(); // Close the modal
+       
+        onCandyUpdated();
+
+        // Close the modal.
+        onClose();
+
+      })
     };
 
     useEffect(() => {

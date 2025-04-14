@@ -20,7 +20,7 @@ function AllCandies() {
         // Fetch candies from the backend API
         fetch('http://localhost:3000/candies/', {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("jwt-token")}` // Include JWT token in headers
+                  Authorization: `Bearer ${localStorage.getItem('jwt-token')}` // Include JWT token in headers
                 }
             })
             .then(response => response.json()) // Convert response to JSON

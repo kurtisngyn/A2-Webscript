@@ -38,6 +38,9 @@ function AddCandyModalContent({ onClose, onCandyAdded }) {
         const candyAPIRequest = await fetch("http://localhost:3000/candies", {
             method: "POST",
             body: formData,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwt-token")}` // Include JWT token in headers
+            },
         });
 
         const candyResult = await candyAPIRequest.json();

@@ -1,13 +1,21 @@
 const express = require("express");
 const db = require("../db");
 const upload = require("../storage");
+const authenticateToken = require("../auth.jwt");
 
 const candiesRouter = express.Router();
 
+candiesRouter.use(authenticateToken);
+
 // Get all candies with optional filtering by categories
 candiesRouter.get("/", (req, res) => {
+
+    console.log(req.user);
+
     // Get the categories query parameter
     const categories = req.query.categories;
+    const user_id = req.user.userId;
+
 
     let sql = `
     SELECT candies.*, categories.name AS category
@@ -24,16 +32,26 @@ candiesRouter.get("/", (req, res) => {
         } else {
             queryParams.push(categories);
         }
+    } else {
+        sql += ` WHERE `;
+    
     }
 
-    db.query(sql, [queryParams], (err, results) => {
+    sql += ` candies.user_id = ?`;
+    queryParams.push(user_id);
+
+  
+
+
+    db.query(sql, queryParams, (err, results) => {
         if (err) {
             // Send error response if there's an error
-            res.status(500).send(err);
+            res.status(500).send(' error occurred!');
             return;
         }
-        // Send the candies as JSON response
+
         res.json(results);
+      
     });
 });
 
@@ -41,11 +59,14 @@ candiesRouter.get("/", (req, res) => {
 candiesRouter.post("/", upload.single("image"), (req, res) => {
     // Get category ID and name from request body
     const { category_id, name } = req.body;
+
+    const user_id = req.user.userId;
+
     // Get the filename of the uploaded image
     const image_name = req.file.filename;
 
-    const addCandySQL = `INSERT INTO candies (category_id, name, image_name) VALUES (?,?,?)`;
-    db.query(addCandySQL, [category_id, name, image_name], (err, results) => {
+    const addCandySQL = `INSERT INTO candies (category_id, name, image_name, user_id) VALUES (?,?,?,?)`;
+    db.query(addCandySQL, [category_id, name, image_name, user_id], (err, results) => {
         if (err) {
             console.log(err);
             // Send error response if there's an error
@@ -60,8 +81,9 @@ candiesRouter.post("/", upload.single("image"), (req, res) => {
 candiesRouter.delete("/:id", (req, res) => {
     // Get the candy ID from the request parameters
     const id = req.params.id;
-    const sql = `DELETE FROM candies WHERE id = ? LIMIT 1`;
-    db.query(sql, [id], (err, results) => {
+    const user_id = req.user.userId;
+    const sql = `DELETE FROM candies WHERE id = ? AND user_id=? LIMIT 1`;
+    db.query(sql, [id, user_id], (err, results) => {
         if (err) {
             console.log(err);
             // Send error response if there's an error
@@ -84,10 +106,11 @@ candiesRouter.delete("/:id", (req, res) => {
 candiesRouter.put("/:id", upload.single("image"), (req, res) => {
     // Get the candy ID from the request parameters
     const { id } = req.params;
+    const user_id = req.user.userId;
     // Get category ID and name from request body
     const { category_id, name } = req.body;
 
-    let updateCandySQL = `UPDATE candies SET name = ?, category_id = ?`;
+    let updateCandySQL = `UPDATE candies SET name = ?, category_id = ? `;
 
     const queryParams = [name, category_id];
 
@@ -97,8 +120,9 @@ candiesRouter.put("/:id", upload.single("image"), (req, res) => {
         queryParams.push(req.file.filename);
     }
 
-    updateCandySQL += ` WHERE id = ? LIMIT 1`;
+    updateCandySQL += ` WHERE id = ? AND user_id = ? LIMIT 1`;
     queryParams.push(id);
+    queryParams.push(user_id);
 
     db.query(updateCandySQL, queryParams, (err, results) => {
         if (err) {
