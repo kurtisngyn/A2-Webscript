@@ -18,7 +18,11 @@ function AllCandies() {
     // Function to fetch candies from the API
     const fetchCandies = async () => {
         // Fetch candies from the backend API
-        fetch('http://localhost:3000/candies/')
+        fetch('http://localhost:3000/candies/', {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("jwt-token")}` // Include JWT token in headers
+                }
+            })
             .then(response => response.json()) // Convert response to JSON
             .then(data => setCandies(data));  // Update state with fetched data
     };
