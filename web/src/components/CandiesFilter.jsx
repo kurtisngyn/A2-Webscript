@@ -30,12 +30,17 @@ function CandiesFilter({ updateCandies }) {
         const queryString = queryStringArray.join("&");
 
         // Fetch filtered candies from the server based on the selected categories
-        fetch(`http://localhost:3000/candies?${queryString}`)
-            .then((response) => response.json()) // Convert response to JSON
+        fetch(`http://localhost:3000/candies?${queryString}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt-token')}`
+            }
+        })
+        
+            .then((response) => response.json())
             .then((data) => {
-                // Update candies list with filtered data
                 updateCandies(data);
             });
+        
     };
 
     return (

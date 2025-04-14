@@ -20,24 +20,20 @@ candiesRouter.get("/", (req, res) => {
     let sql = `
     SELECT candies.*, categories.name AS category
     FROM candies
-    JOIN categories ON candies.category_id=categories.id`;
-
-    const queryParams = [];
-
-    if (categories) {
-        // Filter candies by category IDs
-        sql += ` WHERE categories.id IN (?)`;
-        if (Array.isArray(categories)) {
-            queryParams.push(...categories);
-        } else {
-            queryParams.push(categories);
-        }
-    } else {
-        sql += ` WHERE `;
+    JOIN categories ON candies.category_id = categories.id
+    WHERE candies.user_id = ?`;
     
+    const queryParams = [user_id];
+    
+    if (categories) {
+        // Convert to array if it's not
+        const categoryArray = Array.isArray(categories) ? categories : [categories];
+        // Add placeholder(s)
+        const placeholders = categoryArray.map(() => '?').join(',');
+        sql += ` AND categories.id IN (${placeholders})`;
+        queryParams.push(...categoryArray);
     }
-
-    sql += ` candies.user_id = ?`;
+    
     queryParams.push(user_id);
 
   
